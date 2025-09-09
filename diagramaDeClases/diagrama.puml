@@ -1,0 +1,77 @@
+@startuml
+
+title DriveHub - diagrama de class
+
+abstract class Vehiculo {
+    - matricula: string
+    - marca: string
+    - modelo: string
+    - estado: string
+    - mantenimiento: Mantenimiento[] = []
+    - tarifa: Tarifa
+    + getters_y_setters()
+    + obtenerTarifa(duracion: number, kilometro: number): number
+    + programarMantenimiento(mantenimiento: Mantenimiento): void
+    + finalizarMantenimiento(): void
+    
+}
+
+abstract class Tarifa{
+    - tarifaBase
+    + getters_y_setters()
+    + abstract calcularCosto(duracion: number, kilometro: number): number
+}
+
+
+class Cliente {
+    - idCliente
+    - nombre
+    - reservas: Reserva[] = []
+    + getters_y_setters()
+}
+
+class Kilometraje{
+    -kilometrosDia
+    -KilometrosTotales
+    + getters_y_setters()
+}
+
+class Mantenimiento{
+    - costo: number
+    - fechaInicio: Date
+    - fechaFin: Date
+    - descripcion: string
+    - matriculaVehiculo: string
+}
+
+class Reserva{
+    - fechaInicio: Date
+    - fechaFin: Date
+    - estado: string
+    - kilometraje: Kilometraje
+    - vehiculo: Vehiculo
+    - cliente: Cliente
+    + obtenerDuracionAlquiler()
+    + calcularCostoTotal()
+}
+
+' Relaciones
+
+Vehiculo <|-d- Compacto
+Vehiculo <|-d- Sedan
+Vehiculo <|-d- SUV
+
+Tarifa <|-d- tarifaCompacto 
+Tarifa <|-d- tarifaSedan
+Tarifa <|-d- tarifaSUV
+
+Vehiculo -r- Tarifa
+Vehiculo o-l- Mantenimiento
+
+Reserva -- Vehiculo
+Reserva *-r- Kilometraje
+
+Cliente "1" -- "*" Reserva 
+' bidireccional
+
+@enduml
