@@ -7,14 +7,14 @@ abstract class Vehiculo {
     - marca: string
     - modelo: string
     - estado: string
-    - mantenimiento: Mantenimiento[] = []
+    - mantenimiento: Mantenimiento
     - tarifa: Tarifa
     + getters_y_setters()
     + obtenerTarifa(duracion: number, kilometro: number): number
     + programarMantenimiento(mantenimiento: Mantenimiento): void
     + finalizarMantenimiento(): void
     
-}
+}||
 
 abstract class Tarifa{
     - tarifaBase
@@ -34,6 +34,7 @@ class Kilometraje{
     -kilometrosDia
     -KilometrosTotales
     + getters_y_setters()
+    + calcularKmTotales()
 }
 
 class Mantenimiento{
