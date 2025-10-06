@@ -1,2 +1,10 @@
-node_modules
+# Ignorar la carpeta de dependencias de Node
+node_modules/
+
+# Ignorar la carpeta de reportes de cobertura
+coverage/
+
+# Ignorar la carpeta de archivos compilados
+dist/
+
 
