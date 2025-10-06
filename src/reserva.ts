@@ -1,34 +1,53 @@
-import { Vehiculo } from "./Vehiculo";
-import Cliente from "./cliente";
+// import { Vehiculo } from "./vehiculo/vehiculo";
+// import Cliente from "./cliente";
+// import Kilometraje from "./kilometraje";
+
 import Kilometraje from "./kilometraje";
+import { Vehiculo } from "./vehiculo/vehiculo";
+import Cliente from "./cliente";
+import DateUtils from "./dateutils";
 
 export default class Reserva {
     private fechaInicio: Date;
     private fechaFin: Date;
-    private estado: string;
     private kilometraje: Kilometraje;
     private vehiculo: Vehiculo;
     private cliente: Cliente;
-    private duracionAlquiler: number;
 
-    constructor(fechaInicio: Date, fechaFin: Date, estado: string, kilometraje: Kilometraje, vehiculo: Vehiculo, cliente: Cliente) {
+    constructor(fechaInicio: Date, fechaFin: Date, kilometraje: Kilometraje, vehiculo: Vehiculo, cliente: Cliente) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.estado = estado;
         this.kilometraje = kilometraje;
         this.vehiculo = vehiculo;
         this.cliente = cliente;
-        this.duracionAlquiler = 0;
     }
 
-    // setters y getters
-
-    public obtenerDuracionAlquiler(fechaInicio: Date, fechaFin: Date): void {
-        const diferenciaMilisegundos = fechaFin.getTime() - fechaInicio.getTime();
-        const diaEnMilisegundos = 1000 * 660 * 60 * 24;
-
-        this.duracionAlquiler = Math.floor(diferenciaMilisegundos / diaEnMilisegundos);
+    public getFechaInicio(): Date {
+        return this.fechaInicio;
     }
 
-    // metodo 2
+    public getFechaFin(): Date {
+        return this.fechaFin;
+    }
+
+    public getKilometraje(): Kilometraje {
+        return this.kilometraje;
+    }
+
+    public getVehiculo(): Vehiculo {
+        return this.vehiculo;
+    }
+
+    public getCliente(): Cliente {
+        return this.cliente;
+    }
+
+    public obtenerCostoTotal(): number {
+        const duracion = DateUtils.obtenerDiasDuracion(this.getFechaInicio(), this.getFechaFin());
+        const kilometraje = this.getKilometraje();
+
+        const costoTotal = this.getVehiculo().getTarifa().calcularCosto(duracion, kilometraje);
+        return costoTotal;
+    }
 }
+

@@ -1,4 +1,4 @@
-@startuml 
+@startuml
 
 title DriveHub - diagrama de class
 
@@ -7,11 +7,16 @@ abstract class Vehiculo {
     - marca: string
     - modelo: string
     - estado: IEstadoVehiculo
-    - mantenimiento: Mantenimiento
+    ' - mantenimiento: Mantenimiento
     - tarifa: Tarifa
+
     + getters_y_setters()
-    + programarMantenimiento(mantenimiento: Mantenimiento): void
+    + setEstado(nuevoEstado: IEstadoVehiculo): void
+    + alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
+    + devolver(): void
+    + iniciarMantenimiento(descripcion: string)): void
     + finalizarMantenimiento(): void
+    + iniciarLimpieza():void
 
 }
 
@@ -19,7 +24,7 @@ abstract class Tarifa{
     - tarifaBase: number
     - cargoPorKmRecorrido: number
     + getters_y_setters()
-    + abstract calcularCosto(duracion: number, kilometro: number): number
+    + abstract calcularCosto(duracion: number, kilometro: Kilometraje): number
 }
 
 class TarifaSUV extends Tarifa {
@@ -58,6 +63,7 @@ class Reserva{
     - kilometraje: Kilometraje
     - vehiculo: Vehiculo
     - cliente: Cliente
+    + getters_y_setters()
     + obtenerCostoTotal(): number
 }
 
@@ -73,9 +79,35 @@ interface IEstadoVehiculo {
     + devolver(v: Vehiculo): void
     + iniciarMantenimiento(v: Vehiculo): void
     + finalizarMantenimiento(fechaFin: Date)
-    + marcarComoDisponible(v: Vehiculo): void
     + iniciarLimpieza(v:Vehiculo): void
 }
+
+abstract class Estado implements IEstadoVehiculo{
+    + abstract lanzarErrorAccionInvalida():void
+}
+
+class EstadoDisponible extends Estado {
+    + alquilar()
+    + iniciarMantenimiento()
+}
+
+class EstadoEnAlquiler extends Estado {
+    + devolver()
+    + iniciarMantenimiento()
+}
+
+class EstadoEnMantenimiento extends Estado {
+    + finalizarMantenimiento()
+    + iniciarLimpieza()
+}
+
+class EstadoNecesitaLimpieza extends Estado {
+    + iniciarMantenimiento()
+    + finalizarMantenimiento()
+    + iniciarLimpieza()
+}
+
+
 
 ' Relaciones
 
@@ -88,11 +120,13 @@ Tarifa <|-d- TarifaSedan
 
 Vehiculo -r- Tarifa
 Vehiculo o-l- Mantenimiento
+Vehiculo o-- IEstadoVehiculo
 
 Reserva -- Vehiculo
 Reserva *-r- Kilometraje
 
 Cliente "1" -- "1" Reserva
 ' bidireccional
+
 
 @enduml
