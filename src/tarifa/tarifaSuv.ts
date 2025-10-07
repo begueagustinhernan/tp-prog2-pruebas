@@ -17,16 +17,21 @@ export default class TarifaSUV extends Tarifa {
         this.cargoPorSeguro = CARGO_SEGURO_DIA;
     }
 
+    public getCargoPorSeguro(): number {
+        return this.cargoPorSeguro;
+    }
+
     public calcularCosto(duracionReserva: number, kilometrosRecorridos: Kilometraje): number {
+
         const totalKmsRecorridos = kilometrosRecorridos.calcularKmsTotalesRecorridos();
 
-        let costoBaseTotal: number = duracionReserva * TARIFA_BASE_DIA;
-        let costoSeguroTotal: number = duracionReserva * CARGO_SEGURO_DIA;
+        let costoBaseTotal: number = duracionReserva * this.getTarifaBase();
+        let costoSeguroTotal: number = duracionReserva * this.getCargoPorSeguro();
         let costoVariableTotal = 0;
 
         if (totalKmsRecorridos > LIMITE_KM_TOTAL) {
             const kmExcedidos = totalKmsRecorridos - LIMITE_KM_TOTAL;
-            costoVariableTotal = kmExcedidos * CARGO_ADICIONAL;
+            costoVariableTotal = kmExcedidos * this.getCargoPorKmRecorrido();
         }
 
         const costoTotal = costoBaseTotal + costoSeguroTotal + costoVariableTotal;

@@ -6,7 +6,7 @@ export default class Kilometraje {
 
     public setKmsRecorridosPorDia(claveDia: number, kmsRecorridos: number): void {
         if (this.kmsRecorridosPorDia.has(claveDia)) {
-            throw new KmsRecorridosPorDiaRepetidoError(claveDia);
+            throw new KmsRecorridosPorDiaRepetidoError(claveDia, `Ya existen kilometros recorridos registrados para el dia con clave ${claveDia}`);
         }
         else {
             this.kmsRecorridosPorDia.set(claveDia, kmsRecorridos);
@@ -23,19 +23,12 @@ export default class Kilometraje {
             for (const kmsRecorridos of this.kmsRecorridosPorDia.values()) {
                 kmsTotales += kmsRecorridos;
             }
+            return kmsTotales;
         }
         else {
-            throw new SinRegistrosDeKmsError("No hay kilometros registrados: el mapa de kilometros recorridos esta vacio.")
+            throw new SinRegistrosDeKmsError("No hay kilometros registrados: el mapa de kilometros recorridos esta vacio")
         }
-        return kmsTotales;
+
     }
 }
 
-// public getKmsRecorridosPorDia(claveDia: number): number {
-//     if (this.kmsRecorridosPorDia.has(claveDia)) {
-//         return this.kmsRecorridosPorDia.get(claveDia) as number;
-//     }
-//     else {
-//         return 0; //LANZAMOS UNA EXCEPCION
-//     }
-// }

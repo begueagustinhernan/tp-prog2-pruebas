@@ -16,7 +16,7 @@ export default class TarifaCompacto extends Tarifa {
 
     public calcularCosto(duracionReserva: number, kilometrosRecorridos: Kilometraje): number {
 
-        let costoBaseTotal: number = duracionReserva * TARIFA_BASE_DIA;
+        let costoBaseTotal: number = duracionReserva * this.getTarifaBase();
         let costoVariableTotal: number = 0;
 
         if (kilometrosRecorridos.getKmsRecorridosPorDia().size > 0) {
@@ -24,7 +24,7 @@ export default class TarifaCompacto extends Tarifa {
 
                 if (kmRecorridos > LIMITE_KM_DIA) {
                     const kmExcedidos = kmRecorridos - LIMITE_KM_DIA;
-                    const cargoExtraDiario = kmExcedidos * CARGO_ADICIONAL;
+                    const cargoExtraDiario = kmExcedidos * this.getCargoPorKmRecorrido();
                     costoVariableTotal += cargoExtraDiario;
                 }
             }

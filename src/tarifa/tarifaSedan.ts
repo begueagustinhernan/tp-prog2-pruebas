@@ -14,8 +14,8 @@ export default class TarifaSedan extends Tarifa {
 
     public calcularCosto(duracionReserva: number, kilometrosRecorridos: Kilometraje): number {
 
-        let costoBaseTotal: number = duracionReserva * TARIFA_BASE_DIA;
-        let costoVariableTotal: number = CARGO_ADICIONAL * kilometrosRecorridos.calcularKmsTotalesRecorridos();
+        let costoBaseTotal: number = duracionReserva * this.getTarifaBase();
+        let costoVariableTotal: number = this.getCargoPorKmRecorrido() * kilometrosRecorridos.calcularKmsTotalesRecorridos();
 
         const costoTotal = costoBaseTotal + costoVariableTotal;
         return costoTotal;

@@ -1,7 +1,3 @@
-// import { Vehiculo } from "./vehiculo/vehiculo";
-// import Cliente from "./cliente";
-// import Kilometraje from "./kilometraje";
-
 import Kilometraje from "./kilometraje";
 import { Vehiculo } from "./vehiculo/vehiculo";
 import Cliente from "./cliente";
