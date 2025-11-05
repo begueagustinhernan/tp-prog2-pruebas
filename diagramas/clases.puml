@@ -13,10 +13,9 @@ abstract class Vehiculo {
     + getters_y_setters()
     + setEstado(nuevoEstado: IEstadoVehiculo): void
     + alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
-    + devolver(vehiculo: Vehiculo): void
-    + iniciarMantenimiento(vehiculo: Vehiculo): void
-    + finalizarMantenimiento(vehiculo: Vehiculo): void
-
+    + devolver(): void
+    + iniciarMantenimiento(): void
+    + finalizarMantenimiento(costo: number, fechaFin: Date)
 }
 
 abstract class Tarifa{

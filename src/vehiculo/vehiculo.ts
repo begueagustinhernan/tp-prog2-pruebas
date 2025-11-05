@@ -1,12 +1,13 @@
 import { Tarifa } from "../tarifa/tarifa";
 import Mantenimiento from "../mantenimiento";
-// import { IEstadoVehiculo } from "./estadoVehiculo"; este es para cuando definamos el estado del vehiculo
+import { IEstadoVehiculo } from "./estados/iEstadoVehiculo";
+import Cliente from "../cliente";
 
 export abstract class Vehiculo {
     protected matricula: string;
     protected marca: string;
     protected modelo: string;
-    //protected estado: IEstadoVehiculo;
+    protected estado: IEstadoVehiculo;
     // protected mantenimiento: Map<Date, Mantenimiento> = new Map();
     protected tarifa: Tarifa;
 
@@ -14,13 +15,13 @@ export abstract class Vehiculo {
         matricula: string,
         marca: string,
         modelo: string,
-        //estado: IEstadoVehiculo,
+        estado: IEstadoVehiculo,
         tarifa: Tarifa
     ) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
-        //this.estado = estado;
+        this.estado = estado;
         this.tarifa = tarifa;
     }
 
@@ -36,9 +37,9 @@ export abstract class Vehiculo {
         return this.modelo;
     }
 
-    // public getEstado(): IEstadoVehiculo {
-    //     return this.estado;
-    // }
+    public getEstado(): IEstadoVehiculo {
+        return this.estado;
+    }
 
     // public getMantenimiento(): Map<number, Mantenimiento> {
     //     return this.mantenimiento;
@@ -48,23 +49,23 @@ export abstract class Vehiculo {
         return this.tarifa;
     }
 
-    // public setEstado(estado: IEstadoVehiculo): void {
-    //     this.estado = estado;
-    // }
+    public setEstado(estado: IEstadoVehiculo): void {
+        this.estado = estado;
+    }
 
-    // public setMantenimiento(mantenimiento: Mantenimiento): void {
-    //     this.mantenimiento = mantenimiento;
-    // }
+    public alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date){
+        this.getEstado().alquilar(this, cliente, fechaInicio, fechaFin);
+    }
 
-    // public programarMantenimiento(mantenimiento: Mantenimiento): void {
-    //     this.mantenimiento = mantenimiento;
-    //     this.estado.iniciarMantenimiento(this);
-    // }
+    public devolver(){
+        this.getEstado().devolver(this);
+    }
 
-    // public finalizarMantenimiento(fechaFin: Date): void {
-    //     if (this.mantenimiento) {
-    //         this.mantenimiento.fechaFin = fechaFin;
-    //     }
-    //     this.estado.finalizarMantenimiento(fechaFin);
-    // }
+    public iniciarMantenimiento(){
+        this.getEstado().iniciarMantenimiento(this);
+    }
+    
+    public finalizarMantenimiento(costo: number, fechaFin: Date){
+        this.getEstado().finalizarMantenimiento(this, costo, fechaFin);
+    }
 }

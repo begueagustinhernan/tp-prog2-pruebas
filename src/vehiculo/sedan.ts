@@ -1,5 +1,6 @@
 import { Vehiculo } from "./vehiculo";
 import { Tarifa } from "../tarifa/tarifa";
+import { IEstadoVehiculo } from "./estados/iEstadoVehiculo";
 
 export class Sedan extends Vehiculo {
     
@@ -7,9 +8,9 @@ export class Sedan extends Vehiculo {
         matricula: string,
         marca: string,
         modelo: string,
-        // estado: IEstadoVehiculo,
+        estado: IEstadoVehiculo,
         tarifa: Tarifa
     ) {
-        super(matricula, marca, modelo, tarifa); //aca falta estado y tarifa 
+        super(matricula, marca, modelo, estado, tarifa);
     }
 }

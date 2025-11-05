@@ -7,8 +7,7 @@ export default class Cliente {
     private apellido: string;
     private mail: string;
     private telefono: number;
-    private reserva: Reserva;
-    static getIdCliente: any;
+    private reserva?: Reserva | null;
 
     constructor(idCliente: number, nombre: string, apellido: string, mail: string, telefono: number, reserva: Reserva) {
         this.idCliente = idCliente;
@@ -35,9 +34,20 @@ export default class Cliente {
     public getTelefono(): number {
         return this.telefono;
     }
-    public getReserva(): Reserva {
-        return this.reserva;
+    public getReserva(): Reserva | void {
+        if (this.reserva)
+            return this.reserva;
+        else {
+            throw new Error(`Acción inválida: No existen reservas asociadas al cliente ${this.getNombre()} ${this.getApellido()} con ID: ${this.getIdCliente()}`);
+        }
     }
 
+    public setReserva(reserva: Reserva) {
+        this.reserva = reserva
+    }
+
+    public desasociarReserva(): void {
+        this.reserva = null;
+    }
 
 }

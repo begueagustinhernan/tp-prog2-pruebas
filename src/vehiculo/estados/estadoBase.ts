@@ -22,7 +22,7 @@ export abstract class EstadoBase implements IEstadoVehiculo {
         this.lanzarErrorAccionInvalida("Iniciar Mantenimiento");
     }
 
-    public finalizarMantenimiento(vehiculo: Vehiculo): void {
+    public finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date): void {
         this.lanzarErrorAccionInvalida("Finalizar Mantenimiento");
     }
 
