@@ -1,4 +1,4 @@
-@startuml
+@startuml DriveHub
 
 title DriveHub - diagrama de class
 
@@ -13,10 +13,9 @@ abstract class Vehiculo {
     + getters_y_setters()
     + setEstado(nuevoEstado: IEstadoVehiculo): void
     + alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
-    + devolver(): void
-    + iniciarMantenimiento(descripcion: string)): void
-    + finalizarMantenimiento(): void
-    + iniciarLimpieza():void
+    + devolver(vehiculo: Vehiculo): void
+    + iniciarMantenimiento(vehiculo: Vehiculo): void
+    + finalizarMantenimiento(vehiculo: Vehiculo): void
 
 }
 
@@ -35,10 +34,15 @@ class TarifaSUV extends Tarifa {
 
 
 class Cliente {
-    - idCliente
-    - nombre
-    - reserva: Reserva
+    - idCliente: number
+    - nombre: string
+    - apellido: string
+    - mail: string
+    - telefono: number
+    - reserva: Reserva | null
     + getters_y_setters()
+    + setReserva(Reserva | null): void
+    + desasociarReserva(): void
 }
 
 class Kilometraje{
@@ -50,6 +54,7 @@ class Kilometraje{
     + calcularKmsTotalesRecorridos(): number
 }
 
+' modificar segun parte2
 class Mantenimiento{
     - costo: number
     - fechaInicio: Date
@@ -71,42 +76,37 @@ class DateUtils {
     + static obtenerDiasDuracion(fechaInicio: Date, fechaFin: Date): number
 }
 
-' Ver COMO IMPLEMENTAR
-' porque tiene que haber una clase para CADA estado, que implemente
-' y sobreescriba los metodos de la interfaz
+
 interface IEstadoVehiculo {
     + alquilar(vehiculo: Vehiculo, cliente:Cliente, fechaInicio: date, fechaFin:Date): void
     + devolver(v: Vehiculo): void
     + iniciarMantenimiento(v: Vehiculo): void
-    + finalizarMantenimiento(fechaFin: Date)
-    + iniciarLimpieza(v:Vehiculo): void
+    + finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date)
 }
 
-abstract class Estado implements IEstadoVehiculo{
-    + abstract lanzarErrorAccionInvalida():void
+abstract class EstadoBase implements IEstadoVehiculo {
+    # nombreEstado: string
+    + lanzarErrorAccionInvalida(accion: string): void
+    + alquilar(vehiculo: Vehiculo, cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
+    + devolver(vehiculo: Vehiculo): void
+    + iniciarMantenimiento(v: Vehiculo): void
+    + finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date): void
 }
 
-class EstadoDisponible extends Estado {
-    + alquilar()
-    + iniciarMantenimiento()
+class EstadoDisponible extends EstadoBase  {
+    + alquilar(vehiculo: Vehiculo, cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
+    + iniciarMantenimiento(vehiculo: Vehiculo);
 }
 
-class EstadoEnAlquiler extends Estado {
-    + devolver()
-    + iniciarMantenimiento()
+class EstadoEnAlquiler extends EstadoBase  {
+    - reservaActual: Reserva
+    + devolver(vehiculo: Vehiculo): void
+    + iniciarMantenimiento(vehiculo: Vehiculo): void
 }
 
-class EstadoEnMantenimiento extends Estado {
-    + finalizarMantenimiento()
-    + iniciarLimpieza()
+class EstadoEnMantenimiento extends EstadoBase  {
+    + finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date):void
 }
-
-class EstadoNecesitaLimpieza extends Estado {
-    + iniciarMantenimiento()
-    + finalizarMantenimiento()
-    + iniciarLimpieza()
-}
-
 
 
 ' Relaciones
@@ -120,13 +120,14 @@ Tarifa <|-d- TarifaSedan
 
 Vehiculo -r- Tarifa
 Vehiculo o-l- Mantenimiento
-Vehiculo o-- IEstadoVehiculo
+Vehiculo o--> IEstadoVehiculo
 
 Reserva -- Vehiculo
 Reserva *-r- Kilometraje
 
 Cliente "1" -- "1" Reserva
-' bidireccional
+EstadoBase ..> Vehiculo
+
 
 
 @enduml

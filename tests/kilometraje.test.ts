@@ -30,10 +30,9 @@ describe("Tests Clase Kilometraje", () => {
         catch (error) {
             expect(error).toBeInstanceOf(KmsRecorridosPorDiaRepetidoError);
 
-            if (error instanceof KmsRecorridosPorDiaRepetidoError) {
-                expect(error.getMessage()).toEqual("Error 'KmsRecorridosPorDiaRepetidoError': Ya existen kilometros recorridos registrados para el dia con clave 1 - Codigo: 40901");
-                expect(kilometraje["kmsRecorridosPorDia"].size).toEqual(1);
-            }
+            expect((error as KmsRecorridosPorDiaRepetidoError).getMessage()).toEqual("Error 'KmsRecorridosPorDiaRepetidoError': Ya existen kilometros recorridos registrados para el dia con clave 1 - Codigo: 40901");
+            expect(kilometraje["kmsRecorridosPorDia"].size).toEqual(1);
+
         }
     })
 

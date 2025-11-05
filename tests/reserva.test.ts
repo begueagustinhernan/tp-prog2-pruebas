@@ -56,8 +56,8 @@ describe("Tests Clase Reserva", () => {
         expect(resultado).toBe(clienteMock);
     })
 
-    it.skip("obtenerCostoTotal debe devolver correctamente el costo de reserva delegando la llamada a calcularCosto (Clase Tarifa)", () => {
-
-    })
+    // it("obtenerCostoTotal debe devolver correctamente el costo de reserva delegando la llamada a calcularCosto (Clase Tarifa)", () => {
+    //     expect(true).toBeFalsy();
+    // })
 })
 
