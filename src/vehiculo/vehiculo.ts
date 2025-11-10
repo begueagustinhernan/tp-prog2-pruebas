@@ -1,5 +1,5 @@
 import { Tarifa } from "../tarifa/tarifa";
-import Mantenimiento from "../mantenimiento";
+import { Mantenimiento } from "../mantenimiento";
 import { IEstadoVehiculo } from "./estados/iEstadoVehiculo";
 import Cliente from "../cliente";
 
@@ -8,7 +8,8 @@ export abstract class Vehiculo {
     protected marca: string;
     protected modelo: string;
     protected estado: IEstadoVehiculo;
-    // protected mantenimiento: Map<Date, Mantenimiento> = new Map();
+    protected kilometrajeTotal: number = 0;
+    protected mantenimiento: Mantenimiento;
     protected tarifa: Tarifa;
 
     constructor(
@@ -16,12 +17,14 @@ export abstract class Vehiculo {
         marca: string,
         modelo: string,
         estado: IEstadoVehiculo,
+        mantenimiento: Mantenimiento,
         tarifa: Tarifa
     ) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.estado = estado;
+        this.mantenimiento = mantenimiento;
         this.tarifa = tarifa;
     }
 
@@ -41,9 +44,13 @@ export abstract class Vehiculo {
         return this.estado;
     }
 
-    // public getMantenimiento(): Map<number, Mantenimiento> {
-    //     return this.mantenimiento;
-    // }
+    public getKilometrajeTotal(): number {
+        return this.kilometrajeTotal;
+    }
+
+    public getMantenimiento(): Mantenimiento {
+        return this.mantenimiento;
+    }
 
     public getTarifa(): Tarifa {
         return this.tarifa;
@@ -53,19 +60,23 @@ export abstract class Vehiculo {
         this.estado = estado;
     }
 
-    public alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date){
+    public setKilometrajeTotal(kmTotal: number) {
+        this.kilometrajeTotal = kmTotal;
+    }
+
+    public alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date) {
         this.getEstado().alquilar(this, cliente, fechaInicio, fechaFin);
     }
 
-    public devolver(){
+    public devolver() {
         this.getEstado().devolver(this);
     }
 
-    public iniciarMantenimiento(){
-        this.getEstado().iniciarMantenimiento(this);
+    public iniciarMantenimiento(fechaInicio: Date) {
+        this.getEstado().iniciarMantenimiento(this, fechaInicio);
     }
-    
-    public finalizarMantenimiento(costo: number, fechaFin: Date){
+
+    public finalizarMantenimiento(costo: number, fechaFin: Date) {
         this.getEstado().finalizarMantenimiento(this, costo, fechaFin);
     }
 }
