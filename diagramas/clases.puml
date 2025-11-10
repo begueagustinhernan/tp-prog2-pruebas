@@ -3,18 +3,20 @@
 title DriveHub - diagrama de class
 
 abstract class Vehiculo {
-    - matricula: string
-    - marca: string
-    - modelo: string
-    - estado: IEstadoVehiculo
-    ' - mantenimiento: Mantenimiento
-    - tarifa: Tarifa
+    # matricula: string
+    # marca: string
+    # modelo: string
+    # estado: IEstadoVehiculo
+    # kilometrajeTotal: number
+    # mantenimiento: Mantenimiento
+    # tarifa: Tarifa
 
     + getters_y_setters()
+
     + setEstado(nuevoEstado: IEstadoVehiculo): void
     + alquilar(cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
     + devolver(): void
-    + iniciarMantenimiento(): void
+    + iniciarMantenimiento(fechaInicio: Date): void
     + finalizarMantenimiento(costo: number, fechaFin: Date)
 }
 
@@ -40,7 +42,7 @@ class Cliente {
     - telefono: number
     - reserva: Reserva | null
     + getters_y_setters()
-    + setReserva(Reserva | null): void
+    + setReserva(Reserva): void
     + desasociarReserva(): void
 }
 
@@ -53,12 +55,29 @@ class Kilometraje{
     + calcularKmsTotalesRecorridos(): number
 }
 
-' modificar segun parte2
-class Mantenimiento{
-    - costo: number
+class Mantenimiento {
+    - kmUltimoMantenimiento: number
+    - fechaUltimoMantenimiento: Date
+    - fechaInicioMantenimientoActual: Date | null
+    - cantidadAlquileres: number
+    - historialMantenimientos: RegistroMantenimiento[]
+
+    + getters_y_setters()
+    + iniciarRegistroMantenimiento(fechaInicio: Date)
+    + finalizarRegistroMantenimiento(costo: number, fechaFin: Date, kmFinal: number)
+    + registrarAlquilerCompletado()
+    + verificarNecesidadMantenimiento(kmActual: number): boolean
+    + puedeFinalizar(fechaActual: Date)
+}
+
+class RegistroMantenimiento {
+    - kmFinal: number
     - fechaInicio: Date
     - fechaFin: Date
+    - costo: number
     - descripcion: string
+
+    + getters()
 }
 
 class Reserva{
@@ -78,8 +97,8 @@ class DateUtils {
 
 interface IEstadoVehiculo {
     + alquilar(vehiculo: Vehiculo, cliente:Cliente, fechaInicio: date, fechaFin:Date): void
-    + devolver(v: Vehiculo): void
-    + iniciarMantenimiento(v: Vehiculo): void
+    + devolver(vehiculo: Vehiculo): void
+    + iniciarMantenimiento(vehiculo: Vehiculo, fechaInicio: Date): void
     + finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date)
 }
 
@@ -88,19 +107,19 @@ abstract class EstadoBase implements IEstadoVehiculo {
     + lanzarErrorAccionInvalida(accion: string): void
     + alquilar(vehiculo: Vehiculo, cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
     + devolver(vehiculo: Vehiculo): void
-    + iniciarMantenimiento(v: Vehiculo): void
+    + iniciarMantenimiento(vehiculo: Vehiculo, fechaInicio: Date): void
     + finalizarMantenimiento(vehiculo: Vehiculo, costo: number, fechaFin: Date): void
 }
 
 class EstadoDisponible extends EstadoBase  {
     + alquilar(vehiculo: Vehiculo, cliente: Cliente, fechaInicio: Date, fechaFin: Date): void
-    + iniciarMantenimiento(vehiculo: Vehiculo);
+    + iniciarMantenimiento(vehiculo: Vehiculo, fechaInicio: Date);
 }
 
 class EstadoEnAlquiler extends EstadoBase  {
     - reservaActual: Reserva
     + devolver(vehiculo: Vehiculo): void
-    + iniciarMantenimiento(vehiculo: Vehiculo): void
+    + iniciarMantenimiento(vehiculo: Vehiculo, fechaInicio: Date): void
 }
 
 class EstadoEnMantenimiento extends EstadoBase  {
@@ -117,8 +136,8 @@ Vehiculo <|-d- SUV
 Tarifa <|-d- TarifaCompacto
 Tarifa <|-d- TarifaSedan
 
-Vehiculo -r- Tarifa
-Vehiculo o-l- Mantenimiento
+Vehiculo *-r- Tarifa
+Vehiculo *-l- Mantenimiento
 Vehiculo o--> IEstadoVehiculo
 
 Reserva -- Vehiculo
@@ -126,6 +145,7 @@ Reserva *-r- Kilometraje
 
 Cliente "1" -- "1" Reserva
 EstadoBase ..> Vehiculo
+Mantenimiento "1" *-u- "*" RegistroMantenimiento
 
 
 
