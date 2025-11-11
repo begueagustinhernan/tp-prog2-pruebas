@@ -2,6 +2,8 @@ import Kilometraje from "./kilometraje";
 import { Vehiculo } from "./vehiculo/vehiculo";
 import Cliente from "./cliente";
 import DateUtils from "./dateutils";
+import GestorTemporadas from "./temporadas/gestorTemporadas";
+import { IEstrategiaTarifaTemporada } from "./temporadas/iEstrategiaTarifaTemporada";
 
 export default class Reserva {
     private fechaInicio: Date;
@@ -41,6 +43,9 @@ export default class Reserva {
     public obtenerCostoTotal(): number {
         const duracion = DateUtils.obtenerDiasDuracion(this.getFechaInicio(), this.getFechaFin());
         const kilometraje = this.getKilometraje();
+        const estrategia: IEstrategiaTarifaTemporada = GestorTemporadas.obtenerEstrategia(this.getFechaInicio());
+
+        this.getVehiculo().getTarifa().setEstrategiaTemporada(estrategia);
 
         const costoTotal = this.getVehiculo().getTarifa().calcularCosto(duracion, kilometraje);
         return costoTotal;

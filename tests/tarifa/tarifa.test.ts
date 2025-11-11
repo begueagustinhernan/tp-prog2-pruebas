@@ -1,10 +1,17 @@
 import TarifaCompacto from "../../src/tarifa/tarifaCompacto";
+import { IEstrategiaTarifaTemporada } from "../../src/temporadas/iEstrategiaTarifaTemporada";
+import TemporadaMedia from "../../src/temporadas/temporadaMedia";
 
 describe("Tests Clase Tarifa", () => {
     let tarifa: TarifaCompacto;
 
     beforeEach(() => {
-        tarifa = new TarifaCompacto();
+
+        const estrategiaMock = {
+            ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase) // no modifica la base
+        };
+
+        tarifa = new TarifaCompacto(estrategiaMock);
 
         tarifa["tarifaBase"] = 30;
         tarifa["cargoPorKmRecorrido"] = 0.15;

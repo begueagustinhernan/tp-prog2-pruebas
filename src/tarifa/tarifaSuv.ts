@@ -1,4 +1,5 @@
 import Kilometraje from "../kilometraje";
+import { IEstrategiaTarifaTemporada } from "../temporadas/iEstrategiaTarifaTemporada";
 import { Tarifa } from "./tarifa";
 
 const TARIFA_BASE_DIA = 80;
@@ -10,8 +11,8 @@ const LIMITE_KM_TOTAL = 500;
 export default class TarifaSUV extends Tarifa {
     private cargoPorSeguro: number;
 
-    constructor() {
-        super();
+    constructor(estrategiaTemporada: IEstrategiaTarifaTemporada) {
+        super(estrategiaTemporada);
         this.tarifaBase = TARIFA_BASE_DIA;
         this.cargoPorKmRecorrido = CARGO_ADICIONAL;
         this.cargoPorSeguro = CARGO_SEGURO_DIA;
@@ -25,7 +26,7 @@ export default class TarifaSUV extends Tarifa {
 
         const totalKmsRecorridos = kilometrosRecorridos.calcularKmsTotalesRecorridos();
 
-        let costoBaseTotal: number = duracionReserva * this.getTarifaBase();
+        let costoBaseTotal: number = duracionReserva * this.getTarifaBaseAjustada();
         let costoSeguroTotal: number = duracionReserva * this.getCargoPorSeguro();
         let costoVariableTotal = 0;
 

@@ -8,7 +8,12 @@ describe("Tests Clase TarifaSUV", () => {
     let kilometraje: Kilometraje
 
     beforeEach(() => {
-        tarifa = new TarifaSUV();
+
+        const estrategiaMock = {
+            ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase) // no modifica la base
+            };
+
+        tarifa = new TarifaSUV(estrategiaMock);
         kilometraje = new Kilometraje();
 
     });

@@ -1,6 +1,7 @@
 import { Tarifa } from "../../src/tarifa/tarifa";
 import TarifaSedan from "../../src/tarifa/tarifaSedan";
 import Kilometraje from "../../src/kilometraje";
+import TemporadaMedia from "../../src/temporadas/temporadaMedia";
 
 describe("Tests Clase TarifaSedan", () => {
 
@@ -9,7 +10,11 @@ describe("Tests Clase TarifaSedan", () => {
 
     beforeEach(() => {
 
-        tarifa = new TarifaSedan();
+        const estrategiaMock = {
+            ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase) // no modifica la base
+        };
+
+        tarifa = new TarifaSedan(estrategiaMock);
         kilometraje = new Kilometraje();
 
     });

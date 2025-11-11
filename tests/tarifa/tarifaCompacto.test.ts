@@ -2,13 +2,20 @@ import { Tarifa } from "../../src/tarifa/tarifa";
 import TarifaCompacto from "../../src/tarifa/tarifaCompacto";
 import Kilometraje from "../../src/kilometraje";
 import SinRegistrosDeKmsError from "../../src/excepciones/kilometraje/sinRegistrosDeKmsError";
+import TemporadaMedia from "../../src/temporadas/temporadaMedia";
 
 describe("Tests Clase TarifaCompacto", () => {
+
     let tarifa: TarifaCompacto;
     let kilometraje: Kilometraje
 
     beforeEach(() => {
-        tarifa = new TarifaCompacto();
+
+        const estrategiaMock = {
+            ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase) // no modifica la base
+        };
+
+        tarifa = new TarifaCompacto(estrategiaMock);
         kilometraje = new Kilometraje();
 
     });
