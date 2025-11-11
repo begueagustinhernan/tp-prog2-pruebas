@@ -1,6 +1,6 @@
 @startuml DriveHub
 
-title DriveHub - diagrama de class
+title DriveHub - diagrama de clases
 
 abstract class Vehiculo {
     # matricula: string
@@ -23,6 +23,7 @@ abstract class Vehiculo {
 abstract class Tarifa{
     - tarifaBase: number
     - cargoPorKmRecorrido: number
+    - estrategiaTemporada: IEstrategiaTarifaTemporada
     + getters_y_setters()
     + abstract calcularCosto(duracion: number, kilometro: Kilometraje): number
 }
@@ -33,6 +34,9 @@ class TarifaSUV extends Tarifa {
     + getters_y_setters
 }
 
+interface IEstrategiaTarifaTemporada {
+    + ajustarTarifa(tarifaBase: number): number
+}
 
 class Cliente {
     - idCliente: number
@@ -90,6 +94,10 @@ class Reserva{
     + obtenerCostoTotal(): number
 }
 
+class GestorTemporadas {
+    + obtenerEstrategia(fecha: Date): IEstrategiaTarifaTemporada
+}
+
 class DateUtils {
     + static obtenerDiasDuracion(fechaInicio: Date, fechaFin: Date): number
 }
@@ -135,6 +143,7 @@ Vehiculo <|-d- SUV
 
 Tarifa <|-d- TarifaCompacto
 Tarifa <|-d- TarifaSedan
+Tarifa o-r-> IEstrategiaTarifaTemporada
 
 Vehiculo *-r- Tarifa
 Vehiculo *-l- Mantenimiento
@@ -142,11 +151,14 @@ Vehiculo o--> IEstadoVehiculo
 
 Reserva -- Vehiculo
 Reserva *-r- Kilometraje
+Reserva -l- GestorTemporadas
 
 Cliente "1" -- "1" Reserva
 EstadoBase ..> Vehiculo
 Mantenimiento "1" *-u- "*" RegistroMantenimiento
 
-
+IEstrategiaTarifaTemporada <|.. TemporadaBaja
+IEstrategiaTarifaTemporada <|.. TemporadaMedia
+IEstrategiaTarifaTemporada <|.. TemporadaAlta
 
 @enduml
