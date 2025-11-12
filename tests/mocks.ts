@@ -1,6 +1,6 @@
 export class KilometrajeMock {
     private kmsRecorridosPorDia: Map<number, number> = new Map();
-    constructor() {};
+    constructor() { };
 }
 
 export class VehiculoMock {
@@ -18,5 +18,6 @@ export class ClienteMock {
 }
 
 export class ReservaMock {
-    
+    constructor() { }
 }
+
