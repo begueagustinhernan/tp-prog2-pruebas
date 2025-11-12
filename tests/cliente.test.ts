@@ -1,4 +1,4 @@
-import Cliente from "../src/Cliente";
+import Cliente from "../src/cliente";
 import * as MOCKS from "./mocks";
 
 describe("Tests Clase Cliente", () => {
