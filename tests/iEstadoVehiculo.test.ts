@@ -1,4 +1,3 @@
-import { IEstadoVehiculo } from '../src/vehiculo/estados/iEstadoVehiculo';
 import { EstadoDisponible } from '../src/vehiculo/estados/estadoDisponible';
 import { EstadoEnAlquiler } from '../src/vehiculo/estados/estadoEnAlquiler';
 import { EstadoEnMantenimiento } from '../src/vehiculo/estados/estadoEnMantenimiento';
@@ -9,74 +8,103 @@ import { Mantenimiento } from '../src/mantenimiento';
 import Cliente from '../src/cliente';
 import Kilometraje from '../src/kilometraje';
 
-describe("Tests Interfaz IEstadoVehiculo", () => {
+describe("Tests Clase EstadoDisponible", () => {
+  
+  let estado: EstadoDisponible;
 
-  describe.each([
-    { 
-      Clase: EstadoDisponible, 
-      tipo: 'EstadoDisponible',
-      requiereReserva: false
-    },
-    { 
-      Clase: EstadoEnMantenimiento, 
-      tipo: 'EstadoEnMantenimiento',
-      requiereReserva: false
-    }
-  ])("Implementación de IEstadoVehiculo en $tipo", ({ Clase, tipo, requiereReserva }) => {
-    
-    let estado: IEstadoVehiculo;
-
-    beforeEach(() => {
-      if (requiereReserva) {
-        // EstadoEnAlquiler requiere una reserva en el constructor
-        const estrategiaMock = {
-          ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase)
-        };
-        const estadoDisponible = new EstadoDisponible();
-        const mantenimiento = new Mantenimiento();
-        const tarifa = new TarifaCompacto(estrategiaMock);
-        const vehiculo = new Compacto('ABC123', 'Toyota', 'Corolla', estadoDisponible, mantenimiento, tarifa);
-        const cliente = new Cliente(1, 'Juan', 'Pérez', 'juan@mail.com', 123456, null as any);
-        const reserva = new Reserva(new Date(), new Date(), new Kilometraje(), vehiculo, cliente);
-        
-        estado = new EstadoEnAlquiler(reserva);
-      } else {
-        estado = new Clase();
-      }
-    });
-
-    it(`La clase '${tipo}' debe implementar la interfaz IEstadoVehiculo`, () => {
-      expect(estado).toBeDefined();
-      expect(typeof estado.alquilar).toBe('function');
-      expect(typeof estado.devolver).toBe('function');
-      expect(typeof estado.iniciarMantenimiento).toBe('function');
-      expect(typeof estado.finalizarMantenimiento).toBe('function');
-    });
+  beforeEach(() => {
+    estado = new EstadoDisponible();
   });
 
-  describe("EstadoEnAlquiler implementa IEstadoVehiculo", () => {
-    let estado: IEstadoVehiculo;
+  it("El constructor de la clase 'EstadoDisponible' debe instanciar un objeto de tipo 'EstadoDisponible'", () => {
+    expect(estado).toBeInstanceOf(EstadoDisponible);
+  });
 
-    beforeEach(() => {
-      const estrategiaMock = {
-        ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase)
-      };
-      const estadoDisponible = new EstadoDisponible();
-      const mantenimiento = new Mantenimiento();
-      const tarifa = new TarifaCompacto(estrategiaMock);
-      const vehiculo = new Compacto('ABC123', 'Toyota', 'Corolla', estadoDisponible, mantenimiento, tarifa);
-      const cliente = new Cliente(1, 'Juan', 'Pérez', 'juan@mail.com', 123456, null as any);
-      const reserva = new Reserva(new Date(), new Date(), new Kilometraje(), vehiculo, cliente);
-      
-      estado = new EstadoEnAlquiler(reserva);
-    });
+  it("La clase 'EstadoDisponible' debe implementar el método alquilar", () => {
+    expect(typeof estado.alquilar).toBe('function');
+  });
 
-    it("La clase 'EstadoEnAlquiler' debe implementar la interfaz IEstadoVehiculo", () => {
-      expect(estado).toBeDefined();
-      expect(typeof estado.alquilar).toBe('function');
-      expect(typeof estado.devolver).toBe('function');
-      expect(typeof estado.iniciarMantenimiento).toBe('function');
-      expect(typeof estado.finalizarMantenimiento).toBe('function');
-    });
+  it("La clase 'EstadoDisponible' debe implementar el método devolver", () => {
+    expect(typeof estado.devolver).toBe('function');
+  });
+
+  it("La clase 'EstadoDisponible' debe implementar el método iniciarMantenimiento", () => {
+    expect(typeof estado.iniciarMantenimiento).toBe('function');
+  });
+
+  it("La clase 'EstadoDisponible' debe implementar el método finalizarMantenimiento", () => {
+    expect(typeof estado.finalizarMantenimiento).toBe('function');
+  });
+});
+
+describe("Tests Clase EstadoEnMantenimiento", () => {
+  
+  let estado: EstadoEnMantenimiento;
+
+  beforeEach(() => {
+    estado = new EstadoEnMantenimiento();
+  });
+
+  it("El constructor de la clase 'EstadoEnMantenimiento' debe instanciar un objeto de tipo 'EstadoEnMantenimiento'", () => {
+    expect(estado).toBeInstanceOf(EstadoEnMantenimiento);
+  });
+
+  it("La clase 'EstadoEnMantenimiento' debe implementar el método alquilar", () => {
+    expect(typeof estado.alquilar).toBe('function');
+  });
+
+  it("La clase 'EstadoEnMantenimiento' debe implementar el método devolver", () => {
+    expect(typeof estado.devolver).toBe('function');
+  });
+
+  it("La clase 'EstadoEnMantenimiento' debe implementar el método iniciarMantenimiento", () => {
+    expect(typeof estado.iniciarMantenimiento).toBe('function');
+  });
+
+  it("La clase 'EstadoEnMantenimiento' debe implementar el método finalizarMantenimiento", () => {
+    expect(typeof estado.finalizarMantenimiento).toBe('function');
+  });
+});
+
+describe("Tests Clase EstadoEnAlquiler", () => {
+  
+  let estado: EstadoEnAlquiler;
+  let vehiculo: Compacto;
+  let cliente: Cliente;
+  let reserva: Reserva;
+
+  beforeEach(() => {
+    const estrategiaMock = {
+      ajustarTarifaBase: jest.fn((tarifaBase: number) => tarifaBase)
+    };
+    const estadoDisponible = new EstadoDisponible();
+    const mantenimiento = new Mantenimiento();
+    const tarifa = new TarifaCompacto(estrategiaMock);
+    
+    vehiculo = new Compacto('ABC123', 'Toyota', 'Corolla', estadoDisponible, mantenimiento, tarifa);
+    cliente = new Cliente(1, 'Juan', 'Pérez', 'juan@mail.com', 123456, null as any);
+    reserva = new Reserva(new Date(), new Date(), new Kilometraje(), vehiculo, cliente);
+    
+    estado = new EstadoEnAlquiler(reserva);
+  });
+
+  it("El constructor de la clase 'EstadoEnAlquiler' debe instanciar un objeto de tipo 'EstadoEnAlquiler'", () => {
+    expect(estado).toBeInstanceOf(EstadoEnAlquiler);
+  });
+
+  it("La clase 'EstadoEnAlquiler' debe implementar el método alquilar", () => {
+    expect(typeof estado.alquilar).toBe('function');
+  });
+
+  it("La clase 'EstadoEnAlquiler' debe implementar el método devolver", () => {
+    expect(typeof estado.devolver).toBe('function');
+  });
+
+  it("La clase 'EstadoEnAlquiler' debe implementar el método iniciarMantenimiento", () => {
+    expect(typeof estado.iniciarMantenimiento).toBe('function');
+  });
+
+  it("La clase 'EstadoEnAlquiler' debe implementar el método finalizarMantenimiento", () => {
+    expect(typeof estado.finalizarMantenimiento).toBe('function');
   });
 });
