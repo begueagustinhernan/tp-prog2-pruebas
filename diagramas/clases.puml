@@ -21,8 +21,8 @@ abstract class Vehiculo {
 }
 
 abstract class Tarifa{
-    - tarifaBase: number
-    - cargoPorKmRecorrido: number
+    # tarifaBase: number
+    # cargoPorKmRecorrido: number
     - estrategiaTemporada: IEstrategiaTarifaTemporada
     + getters_y_setters()
     + abstract calcularCosto(duracion: number, kilometro: Kilometraje): number
@@ -94,6 +94,32 @@ class Reserva{
     + obtenerCostoTotal(): number
 }
 
+abstract class ReporteBase {
+    # titulo: string
+    # gestorFlota: GestorFlota
+    + getters_y_setters()
+    # abstract ejecutarCalculoReporte(): void
+    + generarReporte(): void
+}
+
+class ReporteOcupacionFlota extends ReporteBase{
+    - fechaInicio: Date
+    - fechaFin: Date
+}
+
+class ReportePopularidadFlota extends ReporteBase{
+    - fechaInicio: Date
+    - fechaFin: Date
+}
+
+class GestorFlota {
+    - static instance: GestorFlota
+    - vehiculos: Vehiculo
+    + static getInstance(): GestorFlota
+    + agregarVehiculo(vehiculo: Vehiculo): void
+    + getVehiculos(): Vehiculo[]
+}
+
 class GestorTemporadas {
     + obtenerEstrategia(fecha: Date): IEstrategiaTarifaTemporada
 }
@@ -146,6 +172,7 @@ Tarifa <|-d- TarifaSedan
 Tarifa o-r-> IEstrategiaTarifaTemporada
 
 Vehiculo *-r- Tarifa
+Vehiculo -- GestorFlota
 Vehiculo *-l- Mantenimiento
 Vehiculo o--> IEstadoVehiculo
 
@@ -160,5 +187,11 @@ Mantenimiento "1" *-u- "*" RegistroMantenimiento
 IEstrategiaTarifaTemporada <|.. TemporadaBaja
 IEstrategiaTarifaTemporada <|.. TemporadaMedia
 IEstrategiaTarifaTemporada <|.. TemporadaAlta
+
+GestorFlota *-- ReporteBase
+
+ReporteBase <|.. ReporteOcupacionFlota
+ReporteBase <|.. ReportePopularidadFlota
+ReporteBase <|.. ReporteRentabilidadFlota
 
 @enduml
