@@ -24,6 +24,8 @@ export class EstadoEnAlquiler extends EstadoBase {
         kilometrajeTotal += kilometrajeReserva;
         vehiculo.setKilometrajeTotal(kilometrajeTotal);
 
+        vehiculo.setHistorialReservas(this.reservaActual);
+
         this.reservaActual.getCliente().desasociarReserva();
 
         const mantenimiento = vehiculo.getMantenimiento();
