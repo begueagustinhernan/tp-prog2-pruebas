@@ -2,8 +2,12 @@ import { Tarifa } from "../tarifa/tarifa";
 import { Mantenimiento } from "../mantenimiento";
 import { IEstadoVehiculo } from "./estados/iEstadoVehiculo";
 import Cliente from "../cliente";
+import Reserva from "../reserva";
+import { GestorFlota } from "../reportes/gestorFlota";
 
 export abstract class Vehiculo {
+    protected historialReservas: Reserva[] = [];
+
     protected matricula: string;
     protected marca: string;
     protected modelo: string;
@@ -26,6 +30,13 @@ export abstract class Vehiculo {
         this.estado = estado;
         this.mantenimiento = mantenimiento;
         this.tarifa = tarifa;
+
+        const gestorFlota = GestorFlota.getInstance();
+        gestorFlota.agregarVehiculo(this);
+    }
+
+        public getHistorialReservas(): Array<Reserva> {
+        return this.historialReservas;
     }
 
     public getMatricula(): string {
@@ -54,6 +65,10 @@ export abstract class Vehiculo {
 
     public getTarifa(): Tarifa {
         return this.tarifa;
+    }
+
+        public setHistorialReservas(reserva: Reserva): void {
+        this.historialReservas.push(reserva);
     }
 
     public setEstado(estado: IEstadoVehiculo): void {
