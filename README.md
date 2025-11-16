@@ -20,6 +20,90 @@ El sistema ofrece una gestión completa y flexible, capaz de manejar:
 
 ---
 
+TP-PROG2-PRUEBAS/
+│
+├── diagramas/
+│   ├── clases/
+│   │   └── clases.puml
+│   └── secuencia/
+│       └── secuencia.puml
+│
+├── src/
+│   ├── excepciones/
+│   │   ├── kmsRecorridosPorDiaRepetidos.ts
+│   │   └── sinRegistrosDeKmsError.ts
+│   │
+│   ├── reportes/
+│   │   ├── gestorFlota.ts
+│   │   ├── reporteBase.ts
+│   │   ├── reporteOcupacionFlota.ts
+│   │   ├── reportePopularidadFlota.ts
+│   │   └── reporteRentabilidadFlota.ts
+│   │
+│   ├── tarifa/
+│   │   ├── tarifa.ts
+│   │   ├── tarifaCompacto.ts
+│   │   ├── tarifaSedan.ts
+│   │   └── tarifaSuv.ts
+│   │
+│   ├── temporadas/
+│   │   ├── gestorTemporadas.ts
+│   │   ├── iEstrategiaTarifaTemporada.ts
+│   │   ├── temporadaAlta.ts
+│   │   ├── temporadaBaja.ts
+│   │   └── temporadaMedia.ts
+│   │
+│   ├── vehiculo/
+│   │   ├── estados/
+│   │   │   ├── estadoBase.ts
+│   │   │   ├── estadoDisponible.ts
+│   │   │   ├── estadoEnAlquiler.ts
+│   │   │   ├── estaoEnMantenimiento.ts
+│   │   │   └── iEstadoVehiculo.ts
+│   │   ├── compacto.ts
+│   │   ├── sedan.ts
+│   │   └── suv.ts
+│   │   └── vehiculo.ts
+│   │
+│   ├── cliente.ts
+│   ├── dateutils.ts
+│   ├── index.ts
+│   ├── kilometraje.ts
+│   ├── mantenimiento.ts
+│   ├── registroMantenimiento.ts
+│   └── reserva.ts
+│
+└── tests/
+    └── ... (Archivos de pruebas)
+
+ ---
+
+ ⚙️ Cómo compilar el proyecto
+
+El proyecto utiliza TypeScript, así que primero instalá las dependencias:
+
+bash
+
+npm install
+
+bash
+
+Luego compilá:
+
+npm run build
+
+---
+
+🧪 Cómo correr los tests
+
+Este proyecto usa Jest con cobertura mínima del 80%.
+
+Para ejecutar las pruebas:
+
+npm run test
+
+---
+
 ## 🏗️ Diagramas de Diseño
 
 ### Diagrama de Clases (UML)
