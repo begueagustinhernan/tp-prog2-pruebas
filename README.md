@@ -19,10 +19,109 @@ El sistema ofrece una gestión completa y flexible, capaz de manejar:
 * **Reportes y Estadísticas:** Generación de métricas clave como **Rentabilidad por Vehículo** (Ingresos vs. Costos de Mantenimiento) y **Ocupación de la Flota**.
 
 ---
+## 📂 Estructura del Proyecto
+
+```
+TP-PROG2-PRUEBAS/
+│
+├── diagramas/
+│   ├── clases/
+│   │   └── clases.puml
+│   └── secuencia/
+│       └── secuencia.puml
+│
+├── src/
+│   ├── excepciones/
+│   │   ├── kmsRecorridosPorDiaRepetidos.ts
+│   │   └── sinRegistrosDeKmsError.ts
+│   │
+│   ├── reportes/
+│   │   ├── gestorFlota.ts
+│   │   ├── reporteBase.ts
+│   │   ├── reporteOcupacionFlota.ts
+│   │   ├── reportePopularidadFlota.ts
+│   │   └── reporteRentabilidadFlota.ts
+│   │
+│   ├── tarifa/
+│   │   ├── tarifa.ts
+│   │   ├── tarifaCompacto.ts
+│   │   ├── tarifaSedan.ts
+│   │   └── tarifaSuv.ts
+│   │
+│   ├── temporadas/
+│   │   ├── gestorTemporadas.ts
+│   │   ├── iEstrategiaTarifaTemporada.ts
+│   │   ├── temporadaAlta.ts
+│   │   ├── temporadaBaja.ts
+│   │   └── temporadaMedia.ts
+│   │
+│   ├── vehiculo/
+│   │   ├── estados/
+│   │   │   ├── estadoBase.ts
+│   │   │   ├── estadoDisponible.ts
+│   │   │   ├── estadoEnAlquiler.ts
+│   │   │   ├── estaoEnMantenimiento.ts
+│   │   │   └── iEstadoVehiculo.ts
+│   │   ├── compacto.ts
+│   │   ├── sedan.ts
+│   │   └── suv.ts
+│   │   └── vehiculo.ts
+│   │
+│   ├── cliente.ts
+│   ├── dateutils.ts
+│   ├── index.ts
+│   ├── kilometraje.ts
+│   ├── mantenimiento.ts
+│   ├── registroMantenimiento.ts
+│   └── reserva.ts
+│
+└── tests/
+    └── ... (Archivos de pruebas)
+
+ ```
+
+## ⚙️ Cómo compilar el proyecto
+
+El proyecto utiliza TypeScript, así que primero instalá las dependencias:
+
+```bash
+
+npm install
+
+```
+
+Luego compilá:
+
+```bash
+
+npm run build
+
+```
+
+## 🧪 Cómo ejecutar los tests
+
+Este proyecto usa Jest con cobertura mínima del 80%.
+
+Para ejecutar las pruebas:
+
+```bash
+
+npm run test
+
+```
+
+---
 
 ## 🏗️ Diagramas de Diseño
 
-### Diagrama de Clases (UML)
+### 📘 Diagrama de Clases (UML)
+
+![Diagrama de clases](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+
+➡️ [**Abrir diagrama de clases (.puml)**](https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+
+---
+
 [**Enlace al Diagrama de Clases**]
 
 ### Diagrama de Secuencia
