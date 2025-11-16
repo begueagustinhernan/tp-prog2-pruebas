@@ -116,9 +116,9 @@ npm run test
 
 ### 📘 Diagrama de Clases (UML)
 
-![Diagrama de clases](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+![Diagrama de clases](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases.puml)
 
-➡️ [**Abrir diagrama de clases (.puml)**](https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+➡️ [**Abrir diagrama de clases (.puml)**](https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases.puml)
 
 ---
 
