@@ -1,0 +1,57 @@
+@startuml
+autonumber
+
+actor Cliente
+
+Cliente -> Reserva : obtenerCostoTotal()
+
+Reserva -> DateUtils : obtenerDiasDuracion(fechaInicio, fechaFin)
+DateUtils --> Reserva : dias
+
+Reserva -> Kilometraje : getKilometraje()
+Kilometraje --> Reserva : kilometraje
+
+Reserva -> GestorTemporadas : obtenerEstrategia(fechaInicio)
+GestorTemporadas -> TemporadaX : new (Alta/Media/Baja)
+TemporadaX --> GestorTemporadas : estrategia
+GestorTemporadas --> Reserva : estrategia
+
+Reserva -> Vehiculo : getTarifa()
+Vehiculo --> Reserva : tarifa
+
+Reserva -> tarifa : setEstrategiaTemporada(estrategia)
+
+Reserva -> Vehiculo : getTarifa()
+Vehiculo --> Reserva : tarifa
+
+Reserva -> tarifa : calcularCosto(dias, kilometraje)
+
+group Polimorfismo Tarifa
+
+alt TarifaCompacto
+    tarifa -> Kilometraje : getKmsRecorridosPorDia()
+    Kilometraje --> tarifa : mapa kms
+    loop por cada día
+        tarifa -> tarifa : calcular excedentes
+    end
+    tarifa --> Reserva : costoTotal
+end
+
+alt TarifaSedan
+    tarifa -> Kilometraje : calcularKmsTotalesRecorridos()
+    Kilometraje --> tarifa : km totales
+    tarifa --> Reserva : costoTotal
+end
+
+alt TarifaSUV
+    tarifa -> Kilometraje : calcularKmsTotalesRecorridos()
+    Kilometraje --> tarifa : km totales
+    tarifa -> tarifa : calcular seguro + excedentes
+    tarifa --> Reserva : costoTotal
+end
+
+end group
+
+Reserva --> Cliente : costoTotal
+
+@enduml
