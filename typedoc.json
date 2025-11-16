@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["src"],
+  "out": "documentacion",
+  "exclude": ["**/*.spec.ts", "node_modules"],
+  "includeVersion": true,
+  "tsconfig": "tsconfig.json"
+}
