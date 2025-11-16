@@ -80,7 +80,7 @@ TP-PROG2-PRUEBAS/
 
  ```
 
- ⚙️ Cómo compilar el proyecto
+## ⚙️ Cómo compilar el proyecto
 
 El proyecto utiliza TypeScript, así que primero instalá las dependencias:
 
@@ -98,7 +98,7 @@ npm run build
 
 ```
 
-🧪 Cómo correr los tests
+## 🧪 Cómo ejecutar los tests
 
 Este proyecto usa Jest con cobertura mínima del 80%.
 
@@ -114,7 +114,14 @@ npm run test
 
 ## 🏗️ Diagramas de Diseño
 
-### Diagrama de Clases (UML)
+### 📘 Diagrama de Clases (UML)
+
+![Diagrama de clases](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+
+➡️ [**Abrir diagrama de clases (.puml)**](https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/clases/clases.puml)
+
+---
+
 [**Enlace al Diagrama de Clases**]
 
 ### Diagrama de Secuencia
