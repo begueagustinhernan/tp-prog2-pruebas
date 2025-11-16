@@ -190,8 +190,6 @@ IEstrategiaTarifaTemporada <|.. TemporadaAlta
 
 GestorFlota *-- ReporteBase
 
-ReporteBase <|.. ReporteOcupacionFlota
-ReporteBase <|.. ReportePopularidadFlota
-ReporteBase <|.. ReporteRentabilidadFlota
+ReporteBase <|-- ReporteRentabilidadFlota
 
 @enduml
