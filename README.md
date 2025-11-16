@@ -19,7 +19,9 @@ El sistema ofrece una gestión completa y flexible, capaz de manejar:
 * **Reportes y Estadísticas:** Generación de métricas clave como **Rentabilidad por Vehículo** (Ingresos vs. Costos de Mantenimiento) y **Ocupación de la Flota**.
 
 ---
+## 📂 Estructura del Proyecto
 
+```
 TP-PROG2-PRUEBAS/
 │
 ├── diagramas/
@@ -76,23 +78,25 @@ TP-PROG2-PRUEBAS/
 └── tests/
     └── ... (Archivos de pruebas)
 
- ---
+ ```
 
  ⚙️ Cómo compilar el proyecto
 
 El proyecto utiliza TypeScript, así que primero instalá las dependencias:
 
-bash
+```bash
 
 npm install
 
-bash
+```
 
 Luego compilá:
 
+```bash
+
 npm run build
 
----
+```
 
 🧪 Cómo correr los tests
 
@@ -100,7 +104,11 @@ Este proyecto usa Jest con cobertura mínima del 80%.
 
 Para ejecutar las pruebas:
 
+```bash
+
 npm run test
+
+```
 
 ---
 
