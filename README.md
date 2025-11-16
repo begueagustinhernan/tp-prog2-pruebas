@@ -122,7 +122,8 @@ npm run test
 
 ---
 
-[**Enlace al Diagrama de Clases**]
+### 📙 Diagrama de Secuencia
 
-### Diagrama de Secuencia
-[**Enlace al Diagrama de Secuencia**]
+![Diagrama de Secuencia](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/secuencia.puml)
+
+➡️ [**Abrir diagrama de secuencia (.puml)**](https://raw.githubusercontent.com/begueagustinhernan/tp-prog2-pruebas/main/diagramas/secuencia.puml)
