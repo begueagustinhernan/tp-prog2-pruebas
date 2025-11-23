@@ -80,6 +80,8 @@ TP-PROG2-PRUEBAS/
 
  ```
 
+---
+
 ## ⚙️ Cómo compilar el proyecto
 
 El proyecto utiliza TypeScript, así que primero instalá las dependencias:
@@ -110,6 +112,25 @@ npm run test
 
 ```
 
+## 📖 Generar la Documentación HTML
+
+Podés ejecutar el siguiente comando para generar la documentación en la carpeta configurada (documentacion/)
+
+```bash
+
+npx typedoc
+
+```
+
+## 🌐 Visualizar la Documentación
+
+La documentación se generará en formato HTML. Para verla, simplemente abrí el archivo principal en tu navegador web:
+
+```bash
+
+documentacion/index.html
+
+```
 ---
 
 ## 🏗️ Diagramas de Diseño
