@@ -1,4 +1,4 @@
-import { ReporteRentabilidadFlora } from '../../src/reportes/reporteRentabilidadFlota';
+import { ReporteRentabilidadFlota } from '../../src/reportes/reporteRentabilidadFlota';
 import { ReporteBase } from '../../src/reportes/reporteBase';
 import { GestorFlota } from '../../src/reportes/gestorFlota';
 import { Compacto } from '../../src/vehiculo/compacto';
@@ -12,7 +12,7 @@ import Kilometraje from '../../src/kilometraje';
 
 describe("Tests Clase ReporteRentabilidadFlora", () => {
 
-  let reporte: ReporteRentabilidadFlora;
+  let reporte: ReporteRentabilidadFlota;
   let gestorFlota: GestorFlota;
 
   beforeEach(() => {
@@ -20,11 +20,11 @@ describe("Tests Clase ReporteRentabilidadFlora", () => {
     // Limpiamos los vehículos del singleton para cada test
     gestorFlota['vehiculos'] = [];
     
-    reporte = new ReporteRentabilidadFlora();
+    reporte = new ReporteRentabilidadFlota();
   });
 
   it("El constructor de la clase 'ReporteRentabilidadFlora' debe instanciar un objeto de tipo 'ReporteRentabilidadFlora'", () => {
-    expect(reporte).toBeInstanceOf(ReporteRentabilidadFlora);
+    expect(reporte).toBeInstanceOf(ReporteRentabilidadFlota);
   });
 
   it("El constructor de la clase 'ReporteRentabilidadFlora' debe instanciar un objeto de tipo 'ReporteBase'", () => {

@@ -1,11 +1,33 @@
 import { ReporteBase } from "./reporteBase";
 import { Vehiculo } from "../vehiculo/vehiculo";
 
+/**
+ * Reporte concreto que calcula la **popularidad de los vehículos**
+ * de la flota basándose en el número de reservas registradas.
+ */
 export class ReportePopularidadFlota extends ReporteBase {
 
+    /**
+     * Fecha de inicio del período de tiempo a analizar para el reporte.
+     * @private
+     * @type {Date}
+     */
     private fechaInicio: Date;
+
+    /**
+    * Fecha de finalización del período de tiempo a analizar para el reporte.
+    * @private
+    * @type {Date}
+    */
     private fechaFin: Date;
 
+    /**
+     * Crea una nueva instancia del reporte de Popularidad de la Flota.
+     * El título se inicializa para reflejar el objetivo del reporte.
+     *
+     * @param fechaInicio - El límite inferior del rango de fechas.
+     * @param fechaFin - El límite superior del rango de fechas.
+     */
     constructor(fechaInicio: Date, fechaFin: Date) {
         super();
         this.fechaInicio = fechaInicio;
@@ -13,6 +35,18 @@ export class ReportePopularidadFlota extends ReporteBase {
         this.titulo = "Popularidad de la Flota - Vehiculo mas y menos alquilado";
     }
 
+    /**
+     * Sobrescribe el método base: Contiene la lógica para calcular la popularidad
+     * de los vehículos y mostrar los resultados.
+     *
+     * 1. Recorre la flota.
+     * 2. Filtra el historial de reservas de cada vehículo, contando solo aquellas
+     * cuya fecha de finalización está dentro del rango [`fechaInicio`, `fechaFin`].
+     * 3. Mantiene un seguimiento del vehículo con el conteo máximo y mínimo de alquileres.
+     *
+     * @protected
+     * @throws {Error} Si la flota de vehículos está vacía.
+     */
     protected ejecutarCalculoReporte(): void {
         const vehiculos = this.gestorFlota.getVehiculos();
 
