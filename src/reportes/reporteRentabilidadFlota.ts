@@ -1,13 +1,36 @@
 import { ReporteBase } from "./reporteBase";
 import { Vehiculo } from "../vehiculo/vehiculo";
 
-export class ReporteRentabilidadFlora extends ReporteBase {
+/**
+ * Reporte concreto que calcula la **rentabilidad neta** de cada vehículo
+ * de la flota (Patrón Template Method).
+ *
+ * La rentabilidad se define como: (Ingresos Totales por Alquiler) - (Costos Totales de Mantenimiento).
+ * Identifica y muestra el vehículo con la mayor y la menor rentabilidad neta.
+ */
+export class ReporteRentabilidadFlota extends ReporteBase {
 
+    /**
+     * Crea una nueva instancia del reporte de Rentabilidad de la Flota.
+     * El título se inicializa para reflejar el objetivo del reporte.
+     */
     constructor() {
         super();
         this.titulo = "Rentabilidad de la Flota - Vehiculo con mayor y menor rentabilidad";
     }
 
+    /**
+     * Sobrescribe el método base: Contiene la lógica para calcular y mostrar
+     * la rentabilidad neta de la flota.
+     *
+     * 1. Suma el costo total de todas las reservas en el historial (Ingresos).
+     * 2. Suma el costo de todos los registros de mantenimiento (Costos).
+     * 3. Calcula la Rentabilidad Neta = Ingresos - Costos.
+     * 4. Identifica los vehículos con la rentabilidad máxima y mínima.
+     *
+     * @protected
+     * @throws {Error} Si la flota de vehículos está vacía.
+     */
     protected ejecutarCalculoReporte(): void {
         const vehiculos = this.gestorFlota.getVehiculos();
 
