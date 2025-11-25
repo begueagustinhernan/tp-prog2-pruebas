@@ -71,10 +71,11 @@ export class EstadoEnAlquiler extends EstadoBase {
             console.log("Disparador de mantenimiento activado.")
 
             vehiculo.iniciarMantenimiento(new Date());
+        } else {
+            
+            vehiculo.setEstado(new EstadoDisponible());
+            console.log(`Vehiculo '${vehiculo.getMatricula()}' devuelto con exito.`);
         }
-
-        vehiculo.setEstado(new EstadoDisponible());
-        console.log(`Vehiculo '${vehiculo.getMatricula()}' devuelto con exito.`);
     }
 
     /**
