@@ -3,6 +3,7 @@
 title DriveHub - diagrama de clases
 
 abstract class Vehiculo {
+    # historialReservas: Reserva[]
     # matricula: string
     # marca: string
     # modelo: string
@@ -63,6 +64,7 @@ class Mantenimiento {
     - kmUltimoMantenimiento: number
     - fechaUltimoMantenimiento: Date
     - fechaInicioMantenimientoActual: Date | null
+    - fechaEstimadaFin: Date | null
     - cantidadAlquileres: number
     - historialMantenimientos: RegistroMantenimiento[]
 
@@ -181,7 +183,7 @@ Reserva *-r- Kilometraje
 Reserva -l- GestorTemporadas
 
 Cliente "1" -- "1" Reserva
-EstadoBase ..> Vehiculo
+EstadoBase --> Vehiculo
 Mantenimiento "1" *-u- "*" RegistroMantenimiento
 
 IEstrategiaTarifaTemporada <|.. TemporadaBaja
