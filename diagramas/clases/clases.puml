@@ -116,7 +116,7 @@ class ReportePopularidadFlota extends ReporteBase{
 
 class GestorFlota {
     - static instance: GestorFlota
-    - vehiculos: Vehiculo
+    - vehiculos: Vehiculo[]
     + static getInstance(): GestorFlota
     + agregarVehiculo(vehiculo: Vehiculo): void
     + getVehiculos(): Vehiculo[]
