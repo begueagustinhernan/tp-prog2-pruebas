@@ -172,7 +172,7 @@ export class Mantenimiento {
      * @param kmActual - El kilometraje total actual del vehículo.
      * @returns {boolean} True si se cumple alguna de las condiciones de disparo.
      */
-    public verificarNecesidadMantenimiento(kmActual: number): boolean {
+    public verificarNecesidadMantenimiento(kmActual: number, fechaActual: Date = new Date()): boolean {
         const kmsRecorridos = kmActual - this.getKmUltimoMantenimiento();
 
         if (kmsRecorridos > KM_DISPARADOR) {
@@ -185,7 +185,7 @@ export class Mantenimiento {
             return true;
         }
 
-        const diferenciaMilisegundos = new Date().getTime() - this.getFechaUltimoMantenimiento().getTime();
+        const diferenciaMilisegundos = fechaActual.getTime() - this.getFechaUltimoMantenimiento().getTime();
         const diferenciaMeses = diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 30.4375);
 
         if (diferenciaMeses >= MESES_DISPARADOR) {
