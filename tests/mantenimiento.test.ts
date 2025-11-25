@@ -181,7 +181,7 @@ describe("Tests Clase Mantenimiento", () => {
         mantenimiento["kmUltimoMantenimiento"] = 0;
         mantenimiento["cantidadAlquileres"] = 4;
 
-        expect(mantenimiento.verificarNecesidadMantenimiento(1)).toBe(true);
+        expect(mantenimiento.verificarNecesidadMantenimiento(1, FECHA_ACTUAL_MOCK)).toBe(true);
     });
 
     it("verificarNecesidadMantenimiento debe retornar false si NO han pasado 12 meses desde el último mantenimiento", () => {
@@ -192,7 +192,7 @@ describe("Tests Clase Mantenimiento", () => {
         mantenimiento["kmUltimoMantenimiento"] = 0;
         mantenimiento["cantidadAlquileres"] = 4;
 
-        expect(mantenimiento.verificarNecesidadMantenimiento(1)).toBe(false);
+        expect(mantenimiento.verificarNecesidadMantenimiento(1, FECHA_ACTUAL_MOCK)).toBe(false);
     });
 
     it("verificarNecesidadMantenimiento debe retornar false si NINGUNA disparador de mantenimiento se cumple", () => {
@@ -200,7 +200,7 @@ describe("Tests Clase Mantenimiento", () => {
         mantenimiento["kmUltimoMantenimiento"] = 0;
         mantenimiento["cantidadAlquileres"] = 2;
 
-        expect(mantenimiento.verificarNecesidadMantenimiento(5000)).toBe(false);
+        expect(mantenimiento.verificarNecesidadMantenimiento(5000, FECHA_ACTUAL_MOCK)).toBe(false);
     });
 
     it("iniciarRegistroMantenimiento debe establecer la fecha de inicio y la fecha estimada de fin del mantenimiento correctamente", () => {
